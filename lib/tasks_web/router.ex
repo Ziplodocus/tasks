@@ -18,6 +18,14 @@ defmodule TasksWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    get "/:type/create/", PageController, :show
+    post "/:type/create/", PageController, :create
+
+    get "/:type/view/:id", PageController, :show
+
+    get "/:type/edit/:id", PageController, :show
+    post "/:type/edit/:id", PageController, :edit
   end
 
   # Other scopes may use custom stacks.

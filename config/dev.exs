@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :tasks, Tasks.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "tasks",
+  password: "tasks",
   hostname: "localhost",
-  database: "tasks_dev",
+  database: "tasks",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
