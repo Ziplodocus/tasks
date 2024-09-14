@@ -2,4 +2,22 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "variables.css";
+@import "fonts.css";
+@import "color-schemes.css";
+@import "flow.css";
+@import "container.css";
+@import "buttons.css";
+@import "inputs.css";
+
 /* This file is for your main application CSS */
+
+@layer base {
+    a {
+        color: var(--color-cta);
+    }
+
+    hr {
+        @apply my-medium border-outline;
+    }
+}

@@ -202,7 +202,7 @@ defmodule TasksWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
+      <div class="mt-small space-y-small">
         <%= render_slot(@inner_block, f) %>
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           <%= render_slot(action, f) %>
@@ -231,7 +231,7 @@ defmodule TasksWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+        "button phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
         "text-sm font-semibold leading-6 text-white active:text-white/80",
         @class
       ]}
@@ -284,6 +284,7 @@ defmodule TasksWeb.CoreComponents do
   attr :errors, :list, default: []
   attr :checked, :boolean, doc: "the checked flag for checkbox inputs"
   attr :prompt, :string, default: nil, doc: "the prompt for select inputs"
+  attr :wrapper_class, :string, default: nil, doc: "class for the input wrapper"
   attr :options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2"
   attr :multiple, :boolean, default: false, doc: "the multiple flag for select inputs"
 
@@ -309,7 +310,7 @@ defmodule TasksWeb.CoreComponents do
       end)
 
     ~H"""
-    <div>
+    <div class={@wrapper_class}>
       <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
         <input type="hidden" name={@name} value="false" disabled={@rest[:disabled]} />
         <input
@@ -318,7 +319,7 @@ defmodule TasksWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
+          class="rounded border-text text- focus:ring-0"
           {@rest}
         />
         <%= @label %>
@@ -330,7 +331,7 @@ defmodule TasksWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div>
+    <div class={@wrapper_class}>
       <.label for={@id}><%= @label %></.label>
       <select
         id={@id}
@@ -349,18 +350,9 @@ defmodule TasksWeb.CoreComponents do
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div>
+    <div class={@wrapper_class}>
       <.label for={@id}><%= @label %></.label>
-      <textarea
-        id={@id}
-        name={@name}
-        class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6 min-h-[6rem]",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
-        ]}
-        {@rest}
-      ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
+      <textarea id={@id} name={@name} class="mt-pxx block w-full rounded-md" {@rest}><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -369,19 +361,16 @@ defmodule TasksWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div>
+    <div class={@wrapper_class}>
       <.label for={@id}><%= @label %></.label>
       <input
         type={@type}
         name={@name}
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
-        class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
-        ]}
+        class="mt-pxx block w-full rounded-md"
         {@rest}
+        w
       />
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
@@ -396,7 +385,7 @@ defmodule TasksWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="block text-sm font-semibold leading-6">
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -409,8 +398,8 @@ defmodule TasksWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600">
-      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
+    <p class="mt-tiny flex gap-3 text-sm leading-6 text-error">
+      <.icon name="hero-exclamation-circle-mini" class="mt-px size-tiny flex-none" />
       <%= render_slot(@inner_block) %>
     </p>
     """
@@ -427,7 +416,7 @@ defmodule TasksWeb.CoreComponents do
 
   def header(assigns) do
     ~H"""
-    <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
+    <header class={[@actions != [] && "flex items-center justify-between gap-tiny", @class]}>
       <div>
         <h1 class="text-lg font-semibold leading-8 text-zinc-800">
           <%= render_slot(@inner_block) %>

@@ -1,0 +1,14 @@
+<.form method="post" for>
+  <h1>Edit Project</h1>
+  <input type="hidden" name="id" value="" />
+  <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+  <.input type="text" name="name" value="" placeholder="Project name" required></.input>
+  <.input type="textarea" name="description" required value="" placeholder="Project description">
+  </.input>
+  <.button class="mt-2" name="submit" value={@type}>Save Project</.button>
+  <%= if(@method === :post) do %>
+    <.flash kind={:info} title="Project Created">
+      Project `<%= @params["name"] %>` has been created
+    </.flash>
+  <% end %>
+</.form>

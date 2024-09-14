@@ -1,0 +1,29 @@
+.color-scheme-brand {
+}
+
+:root {
+    color-scheme: light dark;
+
+    /**
+     * Dynamic colors, color scheme dependant
+     */
+    --color-bg: light-dark(theme(colors.light.light), theme(colors.dark.dark));
+    --color-text: light-dark(
+        theme(colors.dark.DEFAULT),
+        theme(colors.light.light)
+    );
+    --color-cta: light-dark(theme(colors.cta.mid), theme(colors.cta.mid));
+    --color-link: light-dark(theme(colors.cta.mid), theme(colors.cta.light));
+    --color-brand: light-dark(
+        theme(colors.brand.dark),
+        theme(colors.brand.light)
+    );
+    --color-outline: light-dark(
+        theme(colors.light.dark),
+        theme(colors.dark.light)
+    );
+
+    --color-btn: theme(colors.cta.mid);
+    --color-btn-light: theme(colors.cta.light);
+    --color-btn-dark: theme(colors.cta.dark);
+}

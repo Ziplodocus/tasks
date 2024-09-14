@@ -10,6 +10,10 @@ defmodule TasksWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :auth do
+    # plug :ensure_authenticated
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -18,20 +22,15 @@ defmodule TasksWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-
-    get "/:type/create/", PageController, :show
-    post "/:type/create/", PageController, :create
-
-    get "/:type/view/:id", PageController, :show
-
-    get "/:type/edit/:id", PageController, :show
-    post "/:type/edit/:id", PageController, :edit
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TasksWeb do
-  #   pipe_through :api
-  # end
+  scope "/", TasksWeb do
+    pipe_through [:browser, :auth]
+
+    resources "/projects", ProjectController do
+      resources "/tasks", TaskControlller
+    end
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:tasks, :dev_routes) do

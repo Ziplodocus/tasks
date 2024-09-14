@@ -1,0 +1,64 @@
+@layer components {
+    .buttons {
+        @apply flex flex-wrap gap-small items-start;
+    }
+
+    .button {
+        @apply relative text-transparent bg-clip-text font-semibold px-medium py-tiny rounded-xl border-2 transition;
+        background-image: linear-gradient(
+            to bottom right,
+            var(--color-btn-light),
+            var(--color-btn)
+        );
+        border-color: var(--color-btn-dark);
+
+        &::before {
+            @apply absolute inset-0 rounded-xl opacity-20 transition;
+            content: "";
+            background-image: linear-gradient(
+                to top left,
+                var(--color-btn-light),
+                var(--color-btn)
+            );
+            pointer-events: none;
+        }
+
+        [class^="hero"] {
+            background-image: linear-gradient(
+                to bottom right,
+                var(--color-btn-light),
+                var(--color-btn)
+            );
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                transform: translateY(-0.125rem);
+                &::before {
+                    opacity: 0.3;
+                }
+            }
+        }
+
+        &:active {
+            filter: brightness(0.8);
+            transform: translateY(0.125rem);
+            transition-duration: 100ms;
+
+            &::before {
+                opacity: 0.2;
+                transition-duration: 100ms;
+            }
+        }
+    }
+
+    .button--brand {
+        --color-btn: theme(colors.brand.mid);
+        --color-btn-light: theme(colors.brand.light);
+        --color-btn-dark: theme(colors.brand.dark);
+    }
+
+    .button--large {
+        @apply rounded-2xl py-dyn-small px-dyn-medium;
+    }
+}

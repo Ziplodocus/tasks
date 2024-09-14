@@ -1,0 +1,13 @@
+<.form method="post">
+  <h1>Create Task</h1>
+  <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+  <.input type="text" name="name" value="" placeholder="Task name" required></.input>
+  <.input type="textarea" name="description" required value="" placeholder="Task description">
+  </.input>
+  <.button class="mt-2" name="submit" value={@type}>Submit Task</.button>
+  <%= if(@method === :post) do %>
+    <.flash kind={:info} title="Task Created">
+      Task `<%= @params["name"] %>` has been created
+    </.flash>
+  <% end %>
+</.form>

@@ -1,0 +1,38 @@
+@layer base {
+    .flow {
+        > * + * {
+            margin-top: var(--spacer-flow, 1em);
+        }
+
+        ul,
+        ol {
+            list-style: revert;
+            padding-inline-start: 1em;
+
+            &:where(li) {
+                margin-top: 0.25em;
+            }
+        }
+
+        h1 + :where(p, ul, ol, figure),
+        h2 + :where(p, ul, ol, figure),
+        h3 + :where(p, ul, ol, figure),
+        h4 + :where(p, ul, ol, figure),
+        h5 + :where(p, ul, ol, figure) {
+            --spacer-flow: 1.5em;
+        }
+    }
+
+    h1 + h2,
+    h2 + h3,
+    h3 + h4,
+    h4 + h5,
+    h5 + h6,
+    .subheading {
+        --spacer-flow: 0.4em;
+    }
+
+    .buttons {
+        --spacer-flow: 2em;
+    }
+}

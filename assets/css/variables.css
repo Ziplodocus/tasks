@@ -1,0 +1,20 @@
+@layer base {
+    :root {
+        /**
+         * Dynamic spacing values
+         */
+        --spacer-tiny: clamp(9.66px, 0.89cqi + 7.87px, 19.32px);
+        --spacer-small: clamp(15.55px, 1.44cqi + 12.67px, 31.11px);
+        --spacer-medium: clamp(25.04px, 2.32cqi + 20.4px, 50.08px);
+        --spacer-large: clamp(40.31px, 3.73cqi + 32.85px, 80.63px);
+        --spacer-huge: clamp(64.91px, 6.01cqi + 52.89px, 129.81px);
+
+        --fs-h6: clamp(1.13rem, 0.14cqi + 1.11rem, 1.25rem);
+        --fs-h5: clamp(1.35rem, 0.24cqi + 1.32rem, 1.56rem);
+        --fs-h4: clamp(1.62rem, 0.38cqi + 1.57rem, 1.95rem);
+        --fs-h3: clamp(1.94rem, 0.57cqi + 1.87rem, 2.44rem);
+        --fs-h2: clamp(2.33rem, 0.82cqi + 2.23rem, 3.05rem);
+        --fs-h1: clamp(2.8rem, 1.16cqi + 2.65rem, 3.81rem);
+        --fs-banner: clamp(3.36rem, 1.61cqi + 3.16rem, 4.77rem);
+    }
+}

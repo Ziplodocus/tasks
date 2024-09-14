@@ -1,0 +1,42 @@
+@layer base {
+    [type="text"],
+    [type="email"],
+    [type="url"],
+    [type="password"],
+    [type="number"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="search"],
+    [type="tel"],
+    [type="time"],
+    [type="week"],
+    [multiple],
+    textarea,
+    select {
+        @apply rounded-md bg-cta/5 outline-offset-0 outline-transparent outline-2 border-outline;
+        border-width: 1px;
+        border-color: var(--color-outline);
+        box-shadow: none;
+
+        &:focus {
+            @apply border-outline;
+            border-width: 1px;
+            box-shadow: none;
+        }
+
+        &:focus-visible {
+            @apply border-outline outline-brand-dark;
+            border-width: 1px;
+        }
+    }
+
+    .inputs {
+        @apply flex flex-wrap gap-small;
+        --spacer-flow: 1.5em;
+        > * {
+            flex-basis: 30ch;
+            flex-grow: 1;
+        }
+    }
+}

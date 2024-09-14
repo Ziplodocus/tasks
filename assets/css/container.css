@@ -1,0 +1,33 @@
+@layer base {
+    .container {
+        --content-max: 90ch;
+        display: grid;
+        grid-template-columns:
+            [full-start] minmax(3%, 4fr)
+            [expanded-start] minmax(3%, 3fr) [main-start] minmax(3%, 2fr) [content-start] min(
+                82%,
+                var(--content-max)
+            )
+            [content-end] minmax(3%, 2fr) [main-end] minmax(3%, 3fr) [expanded-end] minmax(
+                3%,
+                4fr
+            )
+            [full-end];
+
+        > * {
+            grid-column: main;
+        }
+
+        > .is-content {
+            grid-column: content;
+        }
+
+        > .is-expanded {
+            grid-column: expanded;
+        }
+
+        > .is-full {
+            grid-column: full;
+        }
+    }
+}
