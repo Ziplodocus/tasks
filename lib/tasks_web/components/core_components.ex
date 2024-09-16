@@ -50,7 +50,7 @@ defmodule TasksWeb.CoreComponents do
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="bg-zinc-50/90 fixed inset-0 transition-opacity" aria-hidden="true" />
+      <div id={"#{@id}-bg"} class="bg-outline fixed inset-0 transition-opacity" aria-hidden="true" />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -60,22 +60,22 @@ defmodule TasksWeb.CoreComponents do
         tabindex="0"
       >
         <div class="flex min-h-full items-center justify-center">
-          <div class="w-full max-w-3xl p-4 sm:p-6 lg:py-8">
+          <div class="w-full p-tiny py-dyn-small">
             <.focus_wrap
               id={"#{@id}-container"}
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white p-14 shadow-lg ring-1 transition"
+              class="shadow-md relative hidden rounded-2xl p-medium transition"
             >
-              <div class="absolute top-6 right-5">
+              <div class="absolute top-small right-small">
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
+                  class="-m-tiny flex-none p-tiny opacity-20 hover:opacity-40"
                   aria-label={gettext("close")}
                 >
-                  <.icon name="hero-x-mark-solid" class="h-5 w-5" />
+                  <.icon name="hero-x-mark-solid" class="h-small w-small" />
                 </button>
               </div>
               <div id={"#{@id}-content"}>
@@ -115,20 +115,20 @@ defmodule TasksWeb.CoreComponents do
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
       class={[
-        "fixed top-2 right-2 mr-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
-        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900",
-        @kind == :error && "bg-rose-50 text-rose-900 shadow-md ring-rose-500 fill-rose-900"
+        "fixed top-small right-small mr-small w-auto z-50 rounded-xl p-small border-l-4 border-brand bg-bg shadow-md",
+        @kind == :info && "bd-success",
+        @kind == :error && "bd-error"
       ]}
       {@rest}
     >
-      <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
-        <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" />
+      <p :if={@title} class="flex items-center gap-tiny text-sm font-semibold leading-6">
+        <.icon :if={@kind == :info} name="hero-information-circle-mini" class="size-small" />
+        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="size-small" />
         <%= @title %>
       </p>
-      <p class="mt-2 text-sm leading-5"><%= msg %></p>
-      <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
-        <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
+      <p class="mt-tiny text-sm leading-5"><%= msg %></p>
+      <button type="button" class="absolute top-tiny right-tiny p-pxx" aria-label={gettext("close")}>
+        <.icon name="hero-x-mark-solid" class="size-small" />
       </button>
     </div>
     """
@@ -158,7 +158,7 @@ defmodule TasksWeb.CoreComponents do
         hidden
       >
         <%= gettext("Attempting to reconnect") %>
-        <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+        <.icon name="hero-arrow-path" class="ml-px h-tiny w-tiny animate-spin" />
       </.flash>
 
       <.flash
@@ -170,7 +170,7 @@ defmodule TasksWeb.CoreComponents do
         hidden
       >
         <%= gettext("Hang in there while we get back on track") %>
-        <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+        <.icon name="hero-arrow-path" class="ml-px h-tiny w-tiny animate-spin" />
       </.flash>
     </div>
     """
@@ -204,7 +204,7 @@ defmodule TasksWeb.CoreComponents do
     <.form :let={f} for={@for} as={@as} {@rest}>
       <div class="mt-small space-y-small">
         <%= render_slot(@inner_block, f) %>
-        <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
+        <div :for={action <- @actions} class="mt-tiny flex items-center justify-between gap-small">
           <%= render_slot(action, f) %>
         </div>
       </div>
@@ -231,8 +231,7 @@ defmodule TasksWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "button phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "button phx-submit-loading:opacity-75",
         @class
       ]}
       {@rest}
@@ -311,7 +310,7 @@ defmodule TasksWeb.CoreComponents do
 
     ~H"""
     <div class={@wrapper_class}>
-      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+      <label class="flex items-center gap-tiny text-sm leading-6">
         <input type="hidden" name={@name} value="false" disabled={@rest[:disabled]} />
         <input
           type="checkbox"
@@ -336,7 +335,7 @@ defmodule TasksWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="mt-2 block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        class="mt-tiny block w-full rounded-md border shadow-sm"
         multiple={@multiple}
         {@rest}
       >
@@ -398,8 +397,8 @@ defmodule TasksWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="mt-tiny flex gap-3 text-sm leading-6 text-error">
-      <.icon name="hero-exclamation-circle-mini" class="mt-px size-tiny flex-none" />
+    <p class="mt-tiny flex items-center gap-tiny text-sm leading-6 text-error">
+      <.icon name="hero-exclamation-circle-mini" class="size-small flex-none text-error" />
       <%= render_slot(@inner_block) %>
     </p>
     """
@@ -418,10 +417,10 @@ defmodule TasksWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-tiny", @class]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8 text-zinc-800">
+        <h1 class="text-lg font-semibold leading-8 ">
           <%= render_slot(@inner_block) %>
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
+        <p :if={@subtitle != []} class="mt-tiny text-sm leading-6 ">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
@@ -462,12 +461,12 @@ defmodule TasksWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-      <table class="w-[40rem] mt-11 sm:w-full">
-        <thead class="text-sm text-left leading-6 text-zinc-500">
+    <div class="overflow-y-auto sm:overflow-visible">
+      <table class="w-full mt-dyn-medium rounded-xl shadow-md">
+        <thead class="text-sm text-left leading-6 ">
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
-            <th :if={@action != []} class="relative p-0 pb-4">
+            <th :for={col <- @col} class="p-tiny font-normal"><%= col[:label] %></th>
+            <th :if={@action != []} class="relative p-tiny">
               <span class="sr-only"><%= gettext("Actions") %></span>
             </th>
           </tr>
@@ -475,28 +474,23 @@ defmodule TasksWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700"
+          class="relative divide-y divide-outline border-t-2 border-outline text-sm leading-6 "
         >
-          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-zinc-50">
+          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-cta/10">
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
-              class={["relative p-0", @row_click && "hover:cursor-pointer"]}
+              class={["relative p-tiny", @row_click && "hover:cursor-pointer"]}
             >
-              <div class="block py-4 pr-6">
-                <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
-                <span class={["relative", i == 0 && "font-semibold text-zinc-900"]}>
+              <div class="block pr-small">
+                <span class={["relative", i == 0 && "font-semibold "]}>
                   <%= render_slot(col, @row_item.(row)) %>
                 </span>
               </div>
             </td>
-            <td :if={@action != []} class="relative w-14 p-0">
-              <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
-                <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-zinc-50 sm:rounded-r-xl" />
-                <span
-                  :for={action <- @action}
-                  class="relative ml-4 font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
-                >
+            <td :if={@action != []} class="relative p-tiny">
+              <div class="relative whitespace-nowrap text-right buttons justify-end">
+                <span :for={action <- @action} class="relative leading-6">
                   <%= render_slot(action, @row_item.(row)) %>
                 </span>
               </div>
@@ -524,11 +518,11 @@ defmodule TasksWeb.CoreComponents do
 
   def list(assigns) do
     ~H"""
-    <div class="mt-14">
-      <dl class="-my-4 divide-y divide-zinc-100">
-        <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
-          <dt class="w-1/4 flex-none text-zinc-500"><%= item.title %></dt>
-          <dd class="text-zinc-700"><%= render_slot(item) %></dd>
+    <div class="mt-medium">
+      <dl class="-my-tiny divide-y divide-outline">
+        <div :for={item <- @item} class="flex gap-tiny py-tiny text-sm leading-6 sm:gap-small">
+          <dt class="w-1/4 flex-none "><%= item.title %></dt>
+          <dd class=""><%= render_slot(item) %></dd>
         </div>
       </dl>
     </div>
@@ -547,12 +541,9 @@ defmodule TasksWeb.CoreComponents do
 
   def back(assigns) do
     ~H"""
-    <div class="mt-16">
-      <.link
-        navigate={@navigate}
-        class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
-      >
-        <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
+    <div class="mt-medium">
+      <.link navigate={@navigate} class="text-sm font-semibold leading-6  hover:">
+        <.icon name="hero-arrow-left-solid" class="h-tiny w-tiny" />
         <%= render_slot(@inner_block) %>
       </.link>
     </div>
@@ -575,7 +566,7 @@ defmodule TasksWeb.CoreComponents do
   ## Examples
 
       <.icon name="hero-x-mark-solid" />
-      <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
+      <.icon name="hero-arrow-path" class="ml-1 w-tiny h-tiny animate-spin" />
   """
   attr :name, :string, required: true
   attr :class, :string, default: nil
@@ -594,7 +585,7 @@ defmodule TasksWeb.CoreComponents do
       time: 300,
       transition:
         {"transition-all transform ease-out duration-300",
-         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+         "opacity-0 translate-y-tiny sm:translate-y-0 sm:scale-95",
          "opacity-100 translate-y-0 sm:scale-100"}
     )
   end
@@ -606,7 +597,7 @@ defmodule TasksWeb.CoreComponents do
       transition:
         {"transition-all transform ease-in duration-200",
          "opacity-100 translate-y-0 sm:scale-100",
-         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
+         "opacity-0 translate-y-tiny sm:translate-y-0 sm:scale-95"}
     )
   end
 

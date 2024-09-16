@@ -4,16 +4,16 @@
     }
 
     .button {
-        @apply relative text-transparent bg-clip-text font-semibold px-medium py-tiny rounded-xl border-2 transition;
+        @apply inline-block overflow-clip relative text-transparent bg-clip-text font-semibold px-medium py-tiny rounded-xl border-2 transition duration-300;
         background-image: linear-gradient(
             to bottom right,
             var(--color-btn-light),
             var(--color-btn)
         );
-        border-color: var(--color-btn-dark);
+        border-color: light-dark(var(--color-btn-light), var(--color-btn-dark));
 
         &::before {
-            @apply absolute inset-0 rounded-xl opacity-20 transition;
+            @apply absolute inset-0 opacity-20 transition;
             content: "";
             background-image: linear-gradient(
                 to top left,
@@ -53,9 +53,18 @@
     }
 
     .button--brand {
-        --color-btn: theme(colors.brand.mid);
-        --color-btn-light: theme(colors.brand.light);
-        --color-btn-dark: theme(colors.brand.dark);
+        --color-btn: light-dark(
+            theme(colors.brand.dark),
+            theme(colors.brand.mid)
+        );
+        --color-btn-light: light-dark(
+            theme(colors.brand.light),
+            theme(colors.brand.light)
+        );
+        --color-btn-dark: light-dark(
+            theme(colors.brand.mid),
+            theme(colors.brand.dark)
+        );
     }
 
     .button--large {

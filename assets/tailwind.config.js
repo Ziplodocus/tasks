@@ -47,6 +47,8 @@ module.exports = {
         light: "#f8cc9d",
         dark: "#bb670e",
       },
+      error: "rgb(157, 11, 11)",
+      success: "green",
 
       text: "var(--color-text)",
       button: "var(--color-cta)",

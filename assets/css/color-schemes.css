@@ -23,7 +23,13 @@
         theme(colors.dark.light)
     );
 
-    --color-btn: theme(colors.cta.mid);
-    --color-btn-light: theme(colors.cta.light);
-    --color-btn-dark: theme(colors.cta.dark);
+    --color-btn: light-dark(theme(colors.cta.dark), theme(colors.cta.mid));
+    --color-btn-light: light-dark(
+        theme(colors.cta.light),
+        theme(colors.cta.light)
+    );
+    --color-btn-dark: light-dark(
+        theme(colors.cta.light),
+        theme(colors.cta.mid)
+    );
 }
